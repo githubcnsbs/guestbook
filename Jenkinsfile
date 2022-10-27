@@ -22,14 +22,12 @@ pipeline {
         }
         stage('Unit Test') {
             steps {
+                echo 'Unit Test'
+                /*
                 sh './mvnw test'
+                */
             }
-            
-            post {
-                always {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                }
-            }
+        
         }
 
         stage('SonarQube Analysis') {
@@ -123,7 +121,7 @@ pipeline {
             slackSend(tokenCredentialId: 'slack-token'
                 , channel: '#교육'
                 , color: 'good'
-                , message: "${JOB_NAME} (${BUILD_NUMBER}) 빌드가 성공적으로 끝났습니다2131. Details: (<${BUILD_URL} | here >)")
+                , message: "${JOB_NAME} (${BUILD_NUMBER}) 빌드가 성공적으로 끝났습니다. Details: (<${BUILD_URL} | here >)")
         }
         failure { 
             slackSend(tokenCredentialId: 'slack-token'
